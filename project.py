@@ -1,27 +1,28 @@
-from random import randint, random
+from random import randint
 
 class Note:
     time_stamp = 4
     pitch = 'c'
 
 
-header = '\\version "2.18.2" \
-\paper {\
-  #(set-paper-size "a4landscape") \
-  print-all-headers = ##t \
-} \
-\layout{ \
-  indent = 0\in \
-  ragged-last = ##f \
-  \context { \
-    \Score \
-  } \
-}\\new Voice \with { \
-  \\remove "Note_heads_engraver" \
-  \\consists "Completion_heads_engraver" \
-  \\remove "Rest_engraver" \
-  \\consists "Completion_rest_engraver" \
-}'
+header = \
+'\\version "2.18.2" \n\
+\paper {\n\
+#(set-paper-size "a4landscape") \n\
+print-all-headers = ##t \n\
+} \n\
+\layout{ \n\
+  indent = 0\in \n\
+  ragged-last = ##f \n\
+  \context { \n\
+    \Score \n\
+  } \n\
+}\\new Voice \with { \n\
+  \\remove "Note_heads_engraver" \n\
+  \\consists "Completion_heads_engraver" \n\
+  \\remove "Rest_engraver" \n\
+  \\consists "Completion_rest_engraver" \n\
+}\n'
 
 all_notes = [' a,,', ' b,,', ' c,,', ' d,,', ' e,,', ' f,,', ' g,,',
              ' a,', ' b,', ' c,', ' d,', ' e,', ' f,', ' g,',
@@ -50,7 +51,6 @@ bar_count = 12
 # first_note =
 # ambitus =
 
-# TODO: naprawić kod, tak żeby nuty kończyły się dokładnie na ostatnim takcie (ostatnia nuta nie może być dłuższa niż pozostały czas w takcie)
 
 with open('p1.ly', 'w') as file1:
     file1.write(header)
@@ -61,12 +61,13 @@ with open('p1.ly', 'w') as file1:
     while full_time > 0:
         note = Note()
         note.pitch = notes[randint(0, len(notes) - 1)]
-        note.time_stamp, time_str = rythmic_values[randint(0, len(rythmic_values) - 1)]
-        print(full_time, 1/note.time_stamp)
+        ind = randint(0, len(rythmic_values) - 1)
+        note.time_stamp, time_str = rythmic_values[ind]
+        #print(full_time, 1/note.time_stamp)
 
-        if 1/note.time_stamp > full_time:
-            note.pitch = ' R'
-            time_str = ''
+        while 1/note.time_stamp > full_time:
+            ind+=1
+            note.time_stamp, time_str = rythmic_values[ind]
 
         full_time -= 1/note.time_stamp
         file1.write(note.pitch + time_str)
