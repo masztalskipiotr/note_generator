@@ -1,4 +1,4 @@
-from random import randint
+from random import randint, random
 
 class Note:
     time_stamp = 4
@@ -51,6 +51,22 @@ bar_count = 12
 # first_note =
 # ambitus =
 
+rest_prob = 0.1  # prawdopodobieństwo wystąpienia pauzy
+
+# prawdopodobieństwa wystąpienia poszczególnych interwałów
+
+unison_prob = 0
+minor_second_prob = 0
+major_second_prob = 0
+minor_third_prob = 0
+major_third_prob = 0
+fourth_prob = 0
+fifth_prob = 0
+minor_sixth_prob = 0
+major_sixth_prob = 0
+minor_seventh_prob = 0
+major_seventh_prob = 0
+octave_prob = 0
 
 with open('p1.ly', 'w') as file1:
     file1.write(header)
@@ -60,13 +76,18 @@ with open('p1.ly', 'w') as file1:
 
     while full_time > 0:
         note = Note()
-        note.pitch = notes[randint(0, len(notes) - 1)]
+        rest_rand = random()
+
+        if rest_rand <= rest_prob:
+            note.pitch = 'r '
+        else:
+            note.pitch = notes[randint(0, len(notes) - 1)]
+
         ind = randint(0, len(rythmic_values) - 1)
         note.time_stamp, time_str = rythmic_values[ind]
-        #print(full_time, 1/note.time_stamp)
 
         while 1/note.time_stamp > full_time:
-            ind+=1
+            ind += 1
             note.time_stamp, time_str = rythmic_values[ind]
 
         full_time -= 1/note.time_stamp
