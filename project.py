@@ -56,16 +56,30 @@ rest_prob = 0.1  # prawdopodobieństwo wystąpienia pauzy
 # prawdopodobieństwa wystąpienia poszczególnych interwałów
 
 unison_prob = 0
+diminished_second_prob = 0
+augmented_unison_prob = 0
 minor_second_prob = 0
 major_second_prob = 0
+diminished_third_prob = 0
+augmented_second_prob = 0
 minor_third_prob = 0
 major_third_prob = 0
+diminished_fourth_prob = 0
+augmented_third_prob = 0
 fourth_prob = 0
+augmented_fourth_prob = 0
+diminished_fifth_prob = 0
 fifth_prob = 0
+diminished_sixth_prob = 0
+augmented_fifth_prob = 0
 minor_sixth_prob = 0
 major_sixth_prob = 0
+diminished_seventh_prob = 0
+augmented_sixth_prob = 0
 minor_seventh_prob = 0
 major_seventh_prob = 0
+diminished_octave_prob = 0
+augmented_seventh_prob = 0
 octave_prob = 0
 
 with open('p1.ly', 'w') as file1:
