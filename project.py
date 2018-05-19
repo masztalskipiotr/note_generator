@@ -24,15 +24,15 @@ print-all-headers = ##t \n\
   \\consists "Completion_rest_engraver" \n\
 }\n'
 
-all_notes = [' a,,', ' b,,', ' c,,', ' d,,', ' e,,', ' f,,', ' g,,',
-             ' a,', ' b,', ' c,', ' d,', ' e,', ' f,', ' g,',
-             ' a', ' b', ' c', ' d', ' e', ' f', ' g',
-             " a'", " b'", " c'", " d'", " e'", " f'", " g'",
-             " a''", " b''", " c''", " d''", " e''", " f''", " g''",
-             " a'''", " b'''", " c'''", " d'''", " e'''", " f'''", " g'''"]
+all_notes = [' c,,', ' d,,', ' e,,', ' f,,', ' g,,', ' a,,', ' b,,',
+             ' c,', ' d,', ' e,', ' f,', ' g,', ' a,', ' b,',
+             ' c', ' d', ' e', ' f', ' g', ' a', ' b',
+             " c'", " d'", " e'", " f'", " g'", " a'", " b'",
+             " c''", " d''", " e''", " f''", " g''", " a''", " b''",
+             " c'''", " d'''", " e'''", " f'''", " g'''", " a'''", " b'''"]
 
 notes = all_notes[21:28]  # oktawa razkreślna dla testów
-tempo = 5  # 3/4
+tempo = 3  # 3/4
 
 if tempo == 2:
     rythmic_values = [[2, '2'], [8/3, '4.'], [4, '4'],
