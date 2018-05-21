@@ -28,3 +28,15 @@ def count_distance(note):
         if char == "'": distance += 12
         if char == ",": distance -= 12
     return distance
+
+def lower_octave(note):
+    for char in note.octave:
+        if char == "'":
+            return note.octave[:-1]
+    return note.octave + ","
+
+def raise_octave(note):
+    for char in note.octave:
+        if char == ",":
+            return note.octave[:-1]
+    return note.octave + "'"

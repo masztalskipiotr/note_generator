@@ -6,5 +6,5 @@ intervals = init_intervals()
 
 filename = 'p1.ly'
 going_down = True
-generate(filename, random_mode, intervals[7], going_down)   # just minor third going down for test
+generate(filename, random_mode, intervals[1], going_down)   # just minor third going down for test
 

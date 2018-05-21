@@ -1,4 +1,4 @@
-from Note import Note, notes
+from Note import Note, notes, lower_octave, raise_octave
 
 def count_interval(note, interval, semitones):
 
@@ -22,19 +22,27 @@ def count_interval(note, interval, semitones):
         semitone_diff -= 1
         postfix_cnt += 1
         if postfix_cnt > 2:
-            result = notes[(new_note.degree - 1) % 7][0] \
-                     + (3 - (notes[new_note.degree % 7][1] - notes[(new_note.degree-1) % 7][1]) % 3)*"es"
+            a = notes[new_note.degree % 7][1] - notes[(new_note.degree-1) % 7][1]
+            result = notes[(new_note.degree - 1) % 7][0]
+            if a == -11:
+                result += 2 * "es"
+                new_note.octave = lower_octave(new_note)
+            else: result += (3 - a)*"es"
             new_note.degree = (new_note.degree - 1)
-            #postfix_cnt -= notes[new_note.degree % 7][1] - notes[(new_note.degree-1) % 7][1]
+            postfix_cnt -= (notes[new_note.degree % 7][1] - notes[(new_note.degree-1) % 7][1]) % 3
     while semitone_diff < semitones:
         result += "is"
         semitone_diff += 1
         postfix_cnt += 1
         if postfix_cnt > 2:
-            result = notes[(new_note.degree + 1) % 7][0] + \
-                     (3 - (notes[(new_note.degree + 1) % 7][1] - notes[new_note.degree % 7][1]) % 3) * "is"
+            a = notes[(new_note.degree + 1) % 7][1] - notes[new_note.degree % 7][1]
+            result = notes[(new_note.degree + 1) % 7][0]
+            if a == -11:
+                result += 2 * "is"
+                new_note.octave = raise_octave(new_note)
+            else: result += (3 - a) * "is"
             new_note.degree = (new_note.degree + 1)
-            #postfix_cnt -= notes[(new_note.degree + 1) % 7][1] - notes[new_note.degree % 7][1]
+            postfix_cnt -= (notes[(new_note.degree + 1) % 7][1] - notes[new_note.degree % 7][1]) % 3
 
     new_note.distance = semitone_diff + note.distance
     new_note.pitch = result
