@@ -1,6 +1,4 @@
-from Note import Note
-from config import notes
-
+from Note import Note, notes
 
 def count_interval(note, interval, semitones):
 

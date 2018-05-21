@@ -1,5 +1,5 @@
 from Note import Note
-from config import tempo, rest_prob, bar_count, notes
+from config import tempo, rest_prob, bar_count
 from random import randint, random
 from rhythmic_values import init_rythmic_values
 from init_header import init_header
@@ -7,6 +7,7 @@ from count_interval import count_interval
 
 header = init_header()
 rhythmic_values = init_rythmic_values()
+
 
 def generate(filename, random_mode, interval, going_down):
     if random_mode:
@@ -45,7 +46,7 @@ def interval_mode(filename, interval, going_down):
         file.write(" { \\time %d/4 " % tempo)
         full_time = bar_count / (4 / tempo)
         note = Note()
-        file.write(note.pitch + note.octave + " ")
+        file.write(note.pitch + note.octave + str(note.time_stamp) + " ")
         full_time -= (1 / note.time_stamp)
         while full_time > 0:
             if going_down:
