@@ -23,7 +23,7 @@ def count_interval(note, interval, semitones):
         postfix_cnt += 1
         if postfix_cnt > 2:
             result = notes[(new_note.degree - 1) % 7][0] \
-                     + (3 - (notes[new_note.degree % 7][1] - notes[(new_note.degree-1) % 7][1]))*"es"
+                     + (3 - (notes[new_note.degree % 7][1] - notes[(new_note.degree-1) % 7][1]) % 3)*"es"
             new_note.degree = (new_note.degree - 1)
             #postfix_cnt -= notes[new_note.degree % 7][1] - notes[(new_note.degree-1) % 7][1]
     while semitone_diff < semitones:
@@ -32,7 +32,7 @@ def count_interval(note, interval, semitones):
         postfix_cnt += 1
         if postfix_cnt > 2:
             result = notes[(new_note.degree + 1) % 7][0] + \
-                     (3 - (notes[(new_note.degree + 1) % 7][1] - notes[new_note.degree % 7][1])) * "is"
+                     (3 - (notes[(new_note.degree + 1) % 7][1] - notes[new_note.degree % 7][1]) % 3) * "is"
             new_note.degree = (new_note.degree + 1)
             #postfix_cnt -= notes[(new_note.degree + 1) % 7][1] - notes[new_note.degree % 7][1]
 
