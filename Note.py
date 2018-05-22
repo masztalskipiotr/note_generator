@@ -1,6 +1,4 @@
 import config
-from config import first_note, first_note_time_stamp
-
 notes = [["c", 0], ["d", 2], ["e", 4], ["f", 5], ["g", 7], ["a",9], ["b",11]]
 
 class Note:
@@ -8,23 +6,26 @@ class Note:
         self.time_stamp = config.first_note_time_stamp
         self.pitch = config.first_note
         self.degree = count_degree(config.first_note)
-        self.distance = count_distance(self)
+        self.distance = count_distance(config.first_note)
         self.octave = ""
 
-def count_degree(first_note):
+def count_degree(note_str):
     for idx, el in enumerate(notes):
-        if first_note[:1] == notes[idx][0]:
+        if note_str[:1] == notes[idx][0]:
             degree = idx
             break
-    for char in first_note[1:]:
+    for char in note_str[1:]:
         if char == "'": degree += 7
         if char == ",": degree -= 7
     return degree
 
 
-def count_distance(note):
-    distance = notes[note.degree % 7][1]
-    for char in note.pitch[1:]:
+def count_distance(note_str):
+    degree = count_degree(note_str)
+    distance = notes[degree % 7][1]
+    for char in note_str[1:]:
+        if char == "i": distance += 1
+        if char == "e": distance -= 1
         if char == "'": distance += 12
         if char == ",": distance -= 12
     return distance

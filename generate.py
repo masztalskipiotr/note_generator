@@ -1,6 +1,9 @@
-from Note import Note
-from config import tempo, rest_prob, bar_count
-from random import randint, random
+from possibilities import pick_interval
+from Note import Note, count_distance
+from config import tempo, bar_count, highest_note, lowest_note
+import random
+from possibilities import init_possibilities
+
 from rhythmic_values import init_rythmic_values
 from init_header import init_header
 from count_interval import count_interval
@@ -9,38 +12,11 @@ header = init_header()
 rhythmic_values = init_rythmic_values()
 
 
-def generate(filename, random_mode, interval, going_down):
-    if random_mode:
-        random(filename)
-    else:
-        interval_mode(filename, interval, going_down)
+def generate(filename, intervals):
 
-def random(filename):
-    with open(filename, 'w') as file:
-        file.write(header)
-        file.write(" { \\time %d/4 " % tempo)
-        full_time = bar_count / (4 / tempo)
-        while full_time > 0:
-            note = Note()
-            rest_rand = random()
-            if rest_rand <= rest_prob:
-                note.pitch = 'r'
-            else:
-                note.degree = randint(0, len(notes) - 1)
-                note.pitch = notes[note.degree][0]
+    up = count_distance(highest_note)
+    low = count_distance(lowest_note)
 
-            ind = randint(0, len(rhythmic_values) - 1)
-            note.time_stamp, time_str = rhythmic_values[ind]
-
-            while 1 / note.time_stamp > full_time:
-                ind += 1
-                note.time_stamp, time_str = rhythmic_values[ind]
-
-            full_time -= 1 / note.time_stamp
-            file.write(note.pitch + time_str + " ")
-
-
-def interval_mode(filename, interval, going_down):
     with open(filename, 'w') as file:
         file.write(header)
         file.write(" { \\time %d/4 " % tempo)
@@ -48,12 +24,12 @@ def interval_mode(filename, interval, going_down):
         note = Note()
         file.write(note.pitch + note.octave + str(note.time_stamp) + " ")
         full_time -= (1 / note.time_stamp)
+
         while full_time > 0:
-            if going_down:
-                note = count_interval(note, -interval.interval, -interval.semitones)
-            else:
-                note = count_interval(note, interval.interval, interval.semitones)
-            ind = randint(0, len(rhythmic_values) - 1)
+            possibilities = init_possibilities(note, up, low, intervals)
+            interval, semitones = pick_interval(possibilities)
+            note = count_interval(note, interval, semitones)
+            ind = random.randint(0, len(rhythmic_values) - 1)
             note.time_stamp, time_str = rhythmic_values[ind]
 
             while 1 / note.time_stamp > full_time:
