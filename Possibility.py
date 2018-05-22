@@ -1,6 +1,5 @@
-class Interval:
-    def __init__(self, name, interval, semitones, probability):
-        self.name = name
+class Possibility:
+    def __init__(self, interval, semitones, probability):
         self.interval = interval
         self.semitones = semitones
         self.probability = probability

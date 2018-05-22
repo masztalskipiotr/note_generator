@@ -8,11 +8,11 @@ def count_interval(note, interval, semitones):
     semitone_diff = notes[new_note.degree % 7][1] - note.distance
     tmp = new_note.degree
     while tmp >= 7:
-        new_note.octave += "'"
+        new_note.octave = raise_octave(new_note)
         semitone_diff += 12
         tmp -= 7
     while tmp < 0:
-        new_note.octave += ","
+        new_note.octave = lower_octave(new_note)
         semitone_diff -= 12
         tmp += 7
 
