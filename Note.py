@@ -3,7 +3,6 @@ notes = [["c", 0], ["d", 2], ["e", 4], ["f", 5], ["g", 7], ["a",9], ["b",11]]
 
 class Note:
     def __init__(self):
-        self.time_stamp = config.first_note_time_stamp
         self.pitch = config.first_note
         self.degree = count_degree(config.first_note)
         self.distance = count_distance(config.first_note)
