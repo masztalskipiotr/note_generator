@@ -1,9 +1,8 @@
 from possibilities import pick_interval
 from Note import Note, count_distance
-from config import tempo, bar_count, highest_note, lowest_note
-import random
+from config import tempo, bar_count, highest_note, lowest_note, rest_probability
+from random import random, randint
 from possibilities import init_possibilities
-
 from rhythmic_values import init_rythmic_values
 from init_header import init_header
 from count_interval import count_interval
@@ -22,21 +21,19 @@ def generate(filename, intervals):
         file.write(" { \\time %d/4 " % tempo)
         full_time = bar_count / (4 / tempo)
         note = Note()
-        file.write(note.pitch + note.octave + str(note.time_stamp) + " ")
-        full_time -= (1 / note.time_stamp)
-
         while full_time > 0:
-            possibilities = init_possibilities(note, up, low, intervals)
-            interval, semitones = pick_interval(possibilities)
-            note = count_interval(note, interval, semitones)
-            ind = random.randint(0, len(rhythmic_values) - 1)
+            ind = randint(0, len(rhythmic_values) - 1)
             note.time_stamp, time_str = rhythmic_values[ind]
-
             while 1 / note.time_stamp > full_time:
                 ind += 1
                 note.time_stamp, time_str = rhythmic_values[ind]
-
-            full_time -= 1 / note.time_stamp
+            if random() <= rest_probability:
+                file.write("r" + time_str + " ")
+                full_time -= 1 / note.time_stamp
+                continue
             file.write(note.pitch + note.octave + time_str + " ")
-
-        file.write(' \\bar "||" }')
+            full_time -= 1 / note.time_stamp
+            possibilities = init_possibilities(note, up, low, intervals)
+            interval, semitones = pick_interval(possibilities)
+            note = count_interval(note, interval, semitones)
+        file.write(' \\bar "||" } }')

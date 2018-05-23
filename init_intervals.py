@@ -39,7 +39,4 @@ def init_intervals():
     intervals.append(Interval('aug_seventh',6,12,config.aug_seventh))
     intervals.append(Interval('octave',7,12, config.octave))
 
-    #intervals = sorted(intervals, key=lambda x: x.probability, reverse=True)
-    #distribute_probability(intervals)
-
     return intervals

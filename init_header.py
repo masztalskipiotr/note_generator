@@ -8,10 +8,8 @@ def init_header():
     \layout{ \n\
       indent = 0\in \n\
       ragged-last = ##f \n\
-      \context { \n\
-        \Score \n\
-      } \n\
-    }\\new Voice \with { \n\
+      } \n \score { \n\
+     \\new Voice \with { \n\
       \\remove "Note_heads_engraver" \n\
       \\consists "Completion_heads_engraver" \n\
       \\remove "Rest_engraver" \n\

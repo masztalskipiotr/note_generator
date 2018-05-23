@@ -1,11 +1,11 @@
 """ configuration file """
 
-tempo = 5  # 3/4
+tempo = 4  # 3/4
 first_note = "c'" # in lilypond notation
-first_note_time_stamp = 16 # in lilypond notation
-lowest_note = "c"
-highest_note = "c''"
-bar_count = 12
+lowest_note = "g"
+highest_note = "e'"
+bar_count = 64
+rest_probability = 0.1
 
 
 """ below it is possible to set probability of particular intervals and pitches """
@@ -36,10 +36,10 @@ min_third =   i
 maj_third =   10*i
 dim_fourth =  i
 aug_third =   i
-fourth =      i
+fourth =      50*i
 aug_fourth =  i
 dim_fifth =   i
-fifth =       50*i
+fifth =       100*i
 dim_sixth =   i
 aug_fifth =   i
 min_sixth =   i
@@ -53,7 +53,7 @@ aug_seventh = i
 octave =      i
 
 
-""" specify pitches probabilty """
+""" specify pitches probability """
 """ c = p;  g = 2*p     means g is two times more likely than c """
 
 c =   p
@@ -61,7 +61,7 @@ cis = p
 d =   p
 dis = p
 e =   p
-f =   100*p
+f =   p
 fis = p
 g =   p
 gis = p
